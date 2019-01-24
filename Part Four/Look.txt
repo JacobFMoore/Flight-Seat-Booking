@@ -1,0 +1,242 @@
+package uk.ac.livjm.cms;
+
+// imports. Even if not used, DO NOT REMOVE. 
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.io.PrintWriter;
+
+public class Searcher {
+	
+	//Scans the seats file
+	private static String SEATS = "M:\\data\\seats.txt";
+	private static Seat[] seats = new Seat[43];
+	
+	//Scans waiting list file
+	private static String WAITS = "M:\\data\\waitinglist.txt";
+	private static Wait[] waits = new Wait[43];
+	
+	public static void main(String[] args) throws IOException {
+		
+		//Scans the seats.txt file
+		Scanner S = new Scanner(new FileReader(SEATS));
+		
+		//Scans the waiting list file
+		Scanner W = new Scanner(new FileReader(WAITS));
+		
+		//Start index at 0 so that it cans each the file form the very beginning
+		int index = 0;
+		
+		//associates the scanner with entries in the text file itself and looks thorough all data. 
+		while (S.hasNext()) {
+			
+		seats[index] = new Seat(S.next(), S.next(), S.nextBoolean(), S.nextBoolean(), 
+				S.nextBoolean(), S.next(), S.nextBoolean(), S.next());
+			
+			index++;	
+		}
+		
+		//closes the Scanners after they are finished scanning.
+		W.close();
+		S.close();
+		
+		//declare Scanner and input before the do loop to avoid the priogram from crashing. DO NOT PUT IN DO/WHILE LOOP. 
+		String input;
+		Scanner console;
+		
+		do {
+		
+		//Main menu for the console showing the user their options. 
+		System.out.println("--MAIN MENU--" +
+				"\n 1. Reserve seat" + 
+				"\n 2. Cancel a seat" +
+				"\n 3. View seat resevrations" + 
+				"\n 4. View waiting list" +
+				"\n Q. Quit" +
+				"\n\n" + 
+				"Please Enter Your Choice: ");
+		
+		//Allows the user to input their own commands
+		console = new Scanner(System.in);
+		
+		//the allocation for the users input
+		input = console.next();
+		
+		//The switch case for each of the users options 
+		switch (input){
+		
+			//When the user enters "1" into the console this is what will execute. 
+			case "1":
+		
+				System.out.println("-- RESERVE A SEAT --");
+					
+				System.out.println("Would you like Standard or first class? (First/Standard)");
+				String type = console.next().toLowerCase();
+				
+				System.out.println("Would you like a window seat? (true/false)");
+				boolean window = console.nextBoolean();
+				
+				System.out.println("Would you like an aisle seat? (true/false)");
+				boolean aisle = console.nextBoolean();
+				
+				System.out.println("Would you like a table seat? (true/false)");
+				boolean table = console.nextBoolean();
+				
+				System.out.println("Would you like your seat to be facing forwards or backwards? (Forwards/Backwards)");
+				String forwards = console.next().toLowerCase();
+				
+				System.out.println("Would you like your seat to have ease of access? (true/false)");
+				boolean EOA = console.nextBoolean();
+
+				System.out.println("Please enter your email");
+				String userEmail = console.next().toLowerCase();
+
+				//What will be registered in the userSeat seat class, only these methods
+				Seat userSeat = new Seat("", type, window, aisle, table, forwards, EOA, "");
+
+				//start at 0 to search whole file. 
+				int index1 = 0;
+				
+				//returns false unless conditions met
+				boolean found = false;
+				
+				//makes sure it searches through the whole file
+				while (index1 < 43 && !found) {
+					if (seats[index1].equals(userSeat) && !seats[index1].isReserved()) {
+						found = true;
+						
+						//Sentence which says where the match has been found
+						System.out.println("A match has been found at " + (index1+1));
+						seats[index1].seteMail(userEmail);
+					}
+					
+					index1++;
+					
+				}
+				
+				break; 
+					
+			//what happens when the user searches for "2"	
+			case "2":
+			
+				System.out.println("-- CANCEL A SEAT --" + 
+									"\n Please Enter Your Email");
+				
+				//declare the console for the user to input their own email. 
+				String cancelEmail = console.next().toLowerCase();
+				
+				//Start at 0 to search the whole file. 
+				int index2 = 0;
+				
+				//returns false unless conditions met
+				boolean found2=false;
+				
+				//finds the  specified email out of the 43 lines. 
+				while (index2 < 43 && !found2) {
+					if (seats[index2].geteMail().equals(cancelEmail)) {
+						found2 = true;
+						
+						//Sentence which says where the match has been found and removes the email with the placeholder "g".
+						System.out.println("A match has been found at " + (index2+1));
+						seats[index2].seteMail("g");
+					}
+
+					index2++;
+				}
+				
+				PrintWriter PW = new PrintWriter(new FileWriter(SEATS));
+				
+				//Helps the program identify what is in the file and then searchers for seat in the Seats files. 
+				for (Seat seat : seats){
+					PW.println(seat.getNum() + " " + seat.getType() + " " + seat.isWindow() + " " + 
+								seat.isAisle() + " " + seat.isTable() + " " + seat.getforwardBackward() + " " + 
+								seat.iseaseOfAccess() + " " + seat.geteMail());
+					
+				}
+				
+				//Makes sure the PrintWriter doesn't remove everything from the file. 
+				PW.close();
+				
+				break;
+				
+			// For when the user selects 3 as their option
+			case "3":
+				
+				System.out.println("-- VIEW SEAT RESERVATIONS --");
+				
+				//scanner for the seats.txt file
+				Scanner SR = new Scanner(new FileReader(SEATS));
+				
+				//makes a new sentence start with in the below tab 
+				SR.useDelimiter(" ");
+				
+				///searches this array using the scanner of the seats.txt file
+				//ArrayList<String> seatRes= new ArrayList<String>();
+				//while (SR.hasNext()){
+				//	seatRes.add(SR.next());
+				//}
+				
+				for (int i=0; i<seats.length; i++)
+					seats[i].print();
+				//prints out the seats.txt file
+				//System.out.println("\n\n" + seatRes + "\n\n");
+				
+				//closes Sr as scanning is finished. 
+				SR.close();
+				
+				break;
+				
+			//for when the user selects 4 as their option
+			case "4":
+				
+				System.out.println("-- VIEW WAITING LIST --");
+				
+				//canner for the waititnglisty.txt file
+				Scanner WL = new Scanner(new FileReader(WAITS));
+				
+				//makes a new sentence start with in the below tab 
+				WL.useDelimiter(" ");
+				
+				//This array is used to look through and then print off the waitinglist.txt file
+				ArrayList<String> waitList = new ArrayList<String>();
+				while (WL.hasNext()){
+					waitList.add(WL.next());
+				}
+				
+				System.out.println("\n\n"
+						+ "Seats with a name next to them are on the waiting list:"
+						+ " \n\n" + waitList);
+				
+				//closes any open scanners and consoles
+				W.close();
+				
+				break; 
+			
+				//should the suer enter something that isn't recognised this is what it will default to. 
+			default:
+				
+				System.out.println("Incorrect input please choose 1-4 or Q");
+				
+				break;
+				
+				//because this system is closing it makes sure that all scanners and consoles shut down.
+				//System.exit(0);
+			
+		
+			}//end of the Switch Case
+		
+		}//end of do while Loop  
+		
+		//case for if the user selects Q
+		while (!input.equals("Q"));
+		System.out.println("Goodbye!...");
+		
+		//because this system is closing it makes sure that all scanners and consoles shut down.
+		console.close();
+		System.exit(0);
+
+	}// end of public Static Void
+}// end of public class Searcher

@@ -1,0 +1,85 @@
+package CourseWork2;
+
+import java.io.FileWriter;
+import java.io.PrintWriter;
+
+public class Seat{
+		private String num;
+		private String type;
+		private boolean window;
+		private boolean aisle;
+		private boolean table;
+		private String forwardBackward;
+		private boolean easeOfAccess;
+		private String eMail;
+			
+		public Seat(String num, String type, boolean window, boolean aisle, boolean table, 
+				String forwardBackward, boolean easeOfAccess, String eMail) {
+			
+		this.num = num;
+		this.type = type;
+		this.window = window;
+		this.aisle = aisle;
+		this.table = table;
+		this.forwardBackward = forwardBackward;
+		this.easeOfAccess = easeOfAccess;
+		this.eMail = eMail;
+		}
+			
+		public boolean equals(Seat s) {
+			if (this.type.equals(s.type) && this.window == s.window && this.aisle == s.aisle && 
+					this.table == s.table && this.forwardBackward.equals(s.forwardBackward) &&
+					this.easeOfAccess == s.easeOfAccess)
+				return true;
+			else
+				return false;
+		}
+					
+		public void reserve(String eMail) {
+			this.eMail = eMail;
+		}
+			
+			
+		public String getNum(){
+			return num;
+		}
+			
+		public String getType(){
+			return type;
+		}
+			
+		public boolean isWindow(){
+			return window;
+		}
+			
+		public boolean isAisle(){
+			return aisle;
+		}
+			
+		public boolean isTable(){
+			return table;
+		}
+			
+		public String getforwardBackward(){
+			return forwardBackward;
+		}
+			
+		public boolean iseaseOfAccess(){
+			return easeOfAccess;
+		}
+			
+		public String geteMail(){
+			return eMail;
+		}
+			
+		public void seteMail(String eMail){
+			this.eMail = eMail;
+		}
+			
+		public boolean isReserved(){
+			if (eMail.equals("g"))
+				return false;
+			else
+				return true;
+		}
+}

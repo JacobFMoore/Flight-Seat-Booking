@@ -1,0 +1,177 @@
+package CourseWork2;
+
+// imports, even if not used, DO NOT REMOVE. 
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.io.PrintWriter;
+
+public class Look {
+	
+	//Scans the seats file
+	private static String SEATS = "C:\\data\\seats.txt";
+	private static Seat[] seats = new Seat[43];
+	
+	//Scans waiting list file
+	private static String WAITS = "C:\\data\\waitinglist.txt";
+	private static Wait[] waits = new Wait[43];
+	
+	public static void main(String[] args) throws IOException {
+		
+		Scanner S = new Scanner(new FileReader(SEATS));
+		Scanner W = new Scanner(new FileReader(WAITS));
+		
+		int index = 0;
+		
+		while (S.hasNext()) {
+			
+		seats[index] = new Seat(S.next(), S.next(), S.nextBoolean(), S.nextBoolean(), 
+				S.nextBoolean(), S.next(), S.nextBoolean(), S.next());
+			
+			index++;	
+		}
+		
+		System.out.println("--MAIN MENU--" +
+				"\n 1. Reserve seat" + 
+				"\n 2. Cancel a seat" +
+				"\n 3. View seat resevrations" + 
+				"\n 4. View waiting list" +
+				"\n 5. Quit");
+				System.out.print("\n "
+						+ "Please Enter Your Choice: ");
+		
+		
+		Scanner console = new Scanner(System.in);
+		
+		String input = console.next();
+		
+		switch (input){
+		
+			case "1":
+		
+				System.out.println("-- RESERVE A SEAT --");
+					
+				System.out.println("Would you like Standard or first class? (First/Standard)");
+				String type = console.next().toLowerCase();
+				
+				System.out.println("Would you like a window seat? (Yes/No)");
+				boolean window = console.nextBoolean();
+				
+				System.out.println("Would you like an aisle seat? (Yes/No)");
+				boolean aisle = console.nextBoolean();
+				
+				System.out.println("Would you like a table seat? (Yes/No)");
+				boolean table = console.nextBoolean();
+				
+				System.out.println("Would you like your seat to be facing forwards or backwards? (Forwards/Backwards)");
+				String forwards = console.next().toLowerCase();
+				
+				System.out.println("Would you like your seat to have ease of access? (Yes/No)");
+				boolean EOA = console.nextBoolean();
+
+				System.out.println("Please enter your email");
+				String userEmail = console.next().toLowerCase();
+
+				Seat userSeat = new Seat("", type, window, aisle, table, forwards, EOA, "");
+
+				int index1=0;
+				
+				boolean found=false;
+				
+				while (index1 < 43 && !found) {
+					if (seats[index1].equals(userSeat) && !seats[index1].isReserved()) {
+						found = true;
+						
+						
+						
+						System.out.println("A match has been found at " + (index1+1));
+						seats[index1].seteMail(userEmail);
+					}
+					
+					index1++;
+					
+				}
+				
+				break; 
+					
+			case "2":
+				
+				System.out.println("-- CANCEL A SEAT --" + 
+									"\n Please Enter Your Email");
+				
+				String cancelEmail = console.next().toLowerCase();
+			
+				int index2 = 0;
+				
+				PrintWriter PW = new PrintWriter(new FileWriter(SEATS));
+				
+				for (Seat seat : seats){
+					PW.println(seat.getNum() + " " + seat.getType() + " " + seat.isWindow() + " " + 
+								seat.isAisle() + " " + seat.isTable() + " " + seat.getforwardBackward() + " " + 
+								seat.iseaseOfAccess());
+					
+				}
+				
+				console.close();
+				System.exit(0);	
+				
+				break;
+				
+				
+			case "3":
+				
+				System.out.println("-- VIEW SEAT RESERVATIONS --");
+				
+				Scanner SR = new Scanner(new FileReader(SEATS));
+				
+				SR.useDelimiter(" ");
+				
+				ArrayList<String> seatRes= new ArrayList<String>();
+				while (SR.hasNext()){
+					seatRes.add(SR.next());
+				}
+				
+				System.out.println("\n\n" + seatRes + "\n\n");
+				
+				SR.close();
+				System.exit(0);
+				
+				break;
+				
+				
+			case "4":
+				
+				System.out.println("-- VIEW WAITING LIST --");
+				
+				Scanner WL = new Scanner(new FileReader(WAITS));
+				
+				WL.useDelimiter(" ");
+				
+				ArrayList<String> waitList = new ArrayList<String>();
+				while (WL.hasNext()){
+					waitList.add(WL.next());
+				}
+				
+				System.out.println("\n\n"
+						+ "Seats with a name next to them are on the waiting list:"
+						+ " \n\n" + waitList);
+				
+				W.close();
+				System.exit(0);
+				
+				break; 
+			
+			case "5":
+				
+				System.out.println("-- QUIT --");
+				
+				System.out.println("Goodbye!...");
+				
+				console.close();
+				System.exit(0);
+		}	
+	}
+}

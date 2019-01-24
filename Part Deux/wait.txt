@@ -1,0 +1,31 @@
+package CourseWork2;
+
+public class Wait {
+
+	private String number;
+	private String booking;
+	
+	public Wait(String number, String booking){
+		
+		this.number = number;
+		this.booking = booking;
+	}
+	
+	public String getNumber(){
+		return number;
+	}
+	public String getBooking(){
+		return booking;
+	}
+
+	public boolean isReserved(){
+		if (booking.equals("g"))
+			return false;
+		else
+			return true;
+	}
+	
+	public void whatWait(String booking){
+		this.booking = booking;
+	}
+}

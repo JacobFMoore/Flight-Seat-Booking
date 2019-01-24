@@ -1,0 +1,109 @@
+package uk.ac.livjm.cms;
+
+//imports for file readers and print writers, DO NOT REMOVE, EVEN IF NOT IN USE
+import java.io.FileWriter;
+import java.io.PrintWriter;
+
+//name of the new class being made 
+public class Seat{
+	
+		//declared values for this class only 
+		private String num;
+		private String type;
+		private boolean window;
+		private boolean aisle;
+		private boolean table;
+		private String forwardBackward;
+		private boolean easeOfAccess;
+		private String eMail;
+		
+		//what the computer will be looking through when opening up the txt file. 
+		public Seat(String num, String type, boolean window, boolean aisle, boolean table, 
+				String forwardBackward, boolean easeOfAccess, String eMail) {
+		
+		//values that will be used for the search function
+		this.num = num;
+		this.type = type;
+		this.window = window;
+		this.aisle = aisle;
+		this.table = table;
+		this.forwardBackward = forwardBackward;
+		this.easeOfAccess = easeOfAccess;
+		this.eMail = eMail;
+		}
+			
+		//What the search function will be identifying when trying to find a seat that fills the users criteria 
+		public boolean equals(Seat s) {
+			if (this.type.equals(s.type) && this.window == s.window && this.aisle == s.aisle && 
+					this.table == s.table && this.forwardBackward.equals(s.forwardBackward) &&
+					this.easeOfAccess == s.easeOfAccess)
+				return true;
+			else
+				return false;
+		}
+		
+		//what will be printed out to the file when variables for the flight and the email has been entered. 
+		public void print() {
+			System.out.println("Num " + num + " Window " + window + " Table " + table + " Aisle " + aisle + 
+					" Fwd/Bckwds " + forwardBackward + " EOA " + easeOfAccess + " Email" + eMail);
+		}
+		
+		//makes sure whatever variable is in this Strings place is returned, applicable to all classes, not private 		
+		public void reserve(String eMail) {
+			this.eMail = eMail;
+		}
+			
+			
+		//makes sure whatever variable is in this Strings place is returned, applicable to all classes, not private 
+		public String getNum(){
+			return num;
+		}
+			
+		//makes sure whatever variable is in this Strings place is returned, applicable to all classes, not private 
+		public String getType(){
+			return type;
+		}
+			
+		//makes sure whatever variable is in this Strings place is returned, applicable to all classes, not private 
+		public boolean isWindow(){
+			return window;
+		}
+			
+		//makes sure whatever variable is in this Strings place is returned, applicable to all classes, not private 
+		public boolean isAisle(){
+			return aisle;
+		}
+			
+		//makes sure whatever variable is in this Strings place is returned, applicable to all classes, not private 
+		public boolean isTable(){
+			return table;
+		}
+			
+		//makes sure whatever variable is in this Strings place is returned, applicable to all classes, not private 
+		public String getforwardBackward(){
+			return forwardBackward;
+		}
+			
+		//makes sure whatever variable is in this Strings place is returned, applicable to all classes, not private 
+		public boolean iseaseOfAccess(){
+			return easeOfAccess;
+		}
+			
+		//makes sure whatever variable is in this Strings place is returned, applicable to all classes, not private 
+		public String geteMail(){
+			return eMail;
+		}
+			
+		//makes sure whatever variable is in this Strings place is returned, applicable to all classes, not private 
+		public void seteMail(String eMail){
+			this.eMail = eMail;
+		}
+			
+		//checks the file to see if the allocation is empty, if the placeholder"g" is in there, then it is empty and not reserved. 
+		public boolean isReserved(){
+			if (eMail.equals("g"))
+				return false;
+			else
+				return true;
+		}
+}//end of the Seat Class

@@ -1,0 +1,38 @@
+package CourseWork2;
+
+//new class being made
+public class Wait {
+
+	//SString applicable to only this class
+	private String number;
+	private String booking;
+	
+	public Wait(String number, String booking){
+		
+		this.number = number;
+		this.booking = booking;
+	}
+	
+	//makes sure whatever variable is in this Strings place is returned, applicable to all classes
+	public String getNumber(){
+		return number;
+	}
+	
+	//makes sure whatever variable is in this Strings place is returned, applicable to all classes, not private 
+	public String getBooking(){
+		return booking;
+	}
+	
+	//checks for the booking to see if it is empty or already declared by another user. 
+	public boolean isReserved(){
+		if (booking.equals("g"))
+			return false;
+		else
+			return true;
+	}
+	
+	//makes sure whatever variable is in this Strings place is returned, applicable to all classes, not private 
+	public void whatWait(String booking){
+		this.booking = booking;
+	}
+}

@@ -1,0 +1,54 @@
+package uk.ac.livjm.cms;
+
+public class Cwk2 {
+
+	public static void main(String[] args) {
+		
+		public class Seat{
+			private String num;
+			private String type;
+			private boolean window;
+			private boolean aisle;
+			private String eMail;
+			
+			public Seat(String num, String type, boolean window, boolean aisle, String eMail) {
+			
+			this.num = num;
+			this.type = type;
+			this.window = window;
+			this.aisle = aisle;
+			
+			}
+			
+			public void reserve(String eMail) {
+				this.eMail = eMail;
+			}
+			
+			public void cancel(){
+				eMail = "";
+			}
+			
+			public String getNum(){
+				return num;
+			}
+			
+			public String getType(){
+				return type;
+			}
+			
+			public boolean isWindow(){
+				return window;
+			}
+			
+			public boolean isAisle(){
+				return aisle;
+			}
+			
+			public String eMail(){
+				return eMail;
+			}
+		}
+
+	}
+
+}

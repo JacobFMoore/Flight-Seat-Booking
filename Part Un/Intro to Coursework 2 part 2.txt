@@ -1,0 +1,56 @@
+package uk.ac.livjm.cms;
+
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+public class Searcher {
+	
+	private static String SEATS = "M:\\data\\seats.txt";
+	private static Seat[] seats = new Seat[31];
+	
+	public static void main(String[] args) {
+		
+		Scanner S = new Scanner(new FileReader(SEATS));
+		
+		int index = 0;
+		
+		while (S.hasNext()) {
+			
+			seats[index] = new Seat(S.next(), S.next(), S.nextBoolean(), S.nextBoolean());
+			
+			index++;
+			
+			//INSERT THE MENU YOU WILL MAKE HERE
+			//1 availble seats
+			//2 book certain seats
+			//2.1 define type of seat wanted?
+			
+		}
+	
+		PrintWriter PW = new PrintWriter(new FileWriter(SEATS));
+		
+		for (Seat seat : seats){
+			PW.println(seat.getNum() + " " + seat.getType() + " " + seat.isWindow() + " " + seat.isAisle());
+			
+		}
+		
+		private static void book(){
+			
+			System.out.print("Specify eMail : ");
+			String eEnter = S.next();
+			for (Seat seat : seats){
+				
+				System.out.println(seat.toString());
+				
+				}
+			
+				
+			}
+	
+		
+	}
+	
+	
+}
